@@ -4,6 +4,8 @@ import { UsersModule } from './modules/users/users.module';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 
+import { ArtistsModule } from './modules/artists/artists.module';
+
 @Module({
 	imports: [
 		GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -28,6 +30,7 @@ import { Module } from '@nestjs/common';
 		}),
 
 		UsersModule,
+		ArtistsModule,
 	],
 })
 	

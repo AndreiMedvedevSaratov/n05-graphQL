@@ -2,15 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { IContext } from 'src/types';
 import axios, { AxiosInstance } from 'axios';
 
-
 @Injectable()
 	
-export class ArtistsService {
+export class BandsService {
 	client: AxiosInstance;
 
 	constructor() {
 		this.client = axios.create({
-			baseURL: 'https://localhost:3002/v1/artists',
+			baseURL: 'http://localhost:3003/v1/bands',
 		});
 
 		this.client.interceptors.response.use((res) => {
@@ -21,28 +20,16 @@ export class ArtistsService {
 	}
 
 	async create(
-		firstName: string,
-		secondName: string,
-		middleName: string,
-		birthDate: string,
-		birthPlace: string,
-		country: string,
-		bands: string[],
-		instruments: string[],
+		name: string,
+		origin: string,
+		members: any[],
+		website: string,
+		genresIds: string[],
 		config: IContext['config'],
 	) {
 		const res = await this.client.post(
 			'/',
-			{
-				firstName,
-				secondName,
-				middleName,
-				birthDate,
-				birthPlace,
-				country,
-				bands,
-				instruments,
-			},
+			{ name, origin, members, website, genresIds },
 			config,
 		);
 
@@ -52,7 +39,7 @@ export class ArtistsService {
 
 	async findOne(id: string) {
 		const res = await this.client.get(`/${id}`);
-		
+
 		return res.data;
 	}
 
@@ -66,39 +53,28 @@ export class ArtistsService {
 	}
 
 
-	async update(
-		id: string,
-		firstName: string,
-		secondName: string,
-		middleName: string,
-		birthDate: string,
-		birthPlace: string,
-		country: string,
-		bands: string[],
-		instruments: string[],
-		config: IContext['config'],
-	) {
-		const res = await this.client.put(
-			`/${id}`,
-			{
-				firstName,
-				secondName,
-				middleName,
-				birthDate,
-				birthPlace,
-				country,
-				bands,
-				instruments,
-			},
-			config,
-		);
+	async remove(id: string, config: IContext['config']) {
+		const res = await this.client.delete(`/${id}`, config);
 
 		return res.data;
 	}
 
-	
-	async remove(id: string, config: IContext['config']) {
-		const res = await this.client.delete(`/${id}`, config);
+
+	async update(
+		id: string,
+		name: string,
+		origin: string,
+		members: any[],
+		website: string,
+		genresIds: string[],
+		config: IContext['config'],
+	) {
+		const res = await this.client.put(
+			`/${id}`,
+			{ name, origin, members, website, genresIds },
+			config,
+		);
+
 		return res.data;
 	}
 }

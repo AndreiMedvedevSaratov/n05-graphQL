@@ -29,6 +29,28 @@ export class UpdateArtistInput {
     instruments?: Nullable<Nullable<string>[]>;
 }
 
+export class MemberInput {
+    artist?: Nullable<string>;
+    instrument?: Nullable<string>;
+    years?: Nullable<string>;
+}
+
+export class UpdateBandInput {
+    name?: Nullable<string>;
+    origin?: Nullable<string>;
+    members?: Nullable<Nullable<MemberInput>[]>;
+    website?: Nullable<string>;
+    genresIds?: Nullable<Nullable<string>[]>;
+}
+
+export class CreateBandInput {
+    name: string;
+    origin?: Nullable<string>;
+    members?: Nullable<Nullable<MemberInput>[]>;
+    website?: Nullable<string>;
+    genresIds?: Nullable<Nullable<string>[]>;
+}
+
 export class Artist {
     id: string;
     firstName?: Nullable<string>;
@@ -46,6 +68,10 @@ export abstract class IQuery {
 
     abstract artist(id: string): Nullable<Artist> | Promise<Nullable<Artist>>;
 
+    abstract bands(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Band>[]> | Promise<Nullable<Nullable<Band>[]>>;
+
+    abstract band(id: string): Nullable<Band> | Promise<Nullable<Band>>;
+
     abstract jwt(email: string, password: string): Nullable<JWT> | Promise<Nullable<JWT>>;
 
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
@@ -58,7 +84,28 @@ export abstract class IMutation {
 
     abstract deleteArtist(id: string): Nullable<Delete> | Promise<Nullable<Delete>>;
 
+    abstract createBand(createBandInput: CreateBandInput): Band | Promise<Band>;
+
+    abstract updateBand(id?: Nullable<string>, updateBandInput?: Nullable<UpdateBandInput>): Band | Promise<Band>;
+
+    abstract deleteBand(id: string): Nullable<Delete> | Promise<Nullable<Delete>>;
+
     abstract register(firstName: string, lastName: string, password: string, email: string): User | Promise<User>;
+}
+
+export class Band {
+    id: string;
+    name?: Nullable<string>;
+    origin?: Nullable<string>;
+    members?: Nullable<Nullable<Member>[]>;
+    website?: Nullable<string>;
+    genres?: Nullable<string>;
+}
+
+export class Member {
+    artist?: Nullable<string>;
+    instrument?: Nullable<string>;
+    years?: Nullable<string>;
 }
 
 export class User {

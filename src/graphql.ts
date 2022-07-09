@@ -51,6 +51,21 @@ export class CreateBandInput {
     genresIds?: Nullable<Nullable<string>[]>;
 }
 
+export class CreateGenreInput {
+    name: string;
+    description?: Nullable<string>;
+    country?: Nullable<string>;
+    year?: Nullable<number>;
+}
+
+export class UpdateGenreInput {
+    id: string;
+    name?: Nullable<string>;
+    description?: Nullable<string>;
+    country?: Nullable<string>;
+    year?: Nullable<number>;
+}
+
 export class Artist {
     id: string;
     firstName?: Nullable<string>;
@@ -72,6 +87,10 @@ export abstract class IQuery {
 
     abstract band(id: string): Nullable<Band> | Promise<Nullable<Band>>;
 
+    abstract genres(limit?: Nullable<number>, offset?: Nullable<number>): Nullable<Nullable<Genre>[]> | Promise<Nullable<Nullable<Genre>[]>>;
+
+    abstract genre(id: string): Nullable<Genre> | Promise<Nullable<Genre>>;
+
     abstract jwt(email: string, password: string): Nullable<JWT> | Promise<Nullable<JWT>>;
 
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
@@ -90,6 +109,12 @@ export abstract class IMutation {
 
     abstract deleteBand(id: string): Nullable<Delete> | Promise<Nullable<Delete>>;
 
+    abstract createGenre(createGenreInput?: Nullable<CreateGenreInput>): Genre | Promise<Genre>;
+
+    abstract updateGenre(updateGenreInput?: Nullable<UpdateGenreInput>): Genre | Promise<Genre>;
+
+    abstract deleteGenre(id: string): Nullable<Delete> | Promise<Nullable<Delete>>;
+
     abstract register(firstName: string, lastName: string, password: string, email: string): User | Promise<User>;
 }
 
@@ -106,6 +131,14 @@ export class Member {
     artist?: Nullable<string>;
     instrument?: Nullable<string>;
     years?: Nullable<string>;
+}
+
+export class Genre {
+    id: string;
+    name?: Nullable<string>;
+    description?: Nullable<string>;
+    country?: Nullable<string>;
+    year?: Nullable<number>;
 }
 
 export class User {

@@ -7,6 +7,7 @@ import { Module } from '@nestjs/common';
 import { ArtistsModule } from './modules/artists/artists.module';
 import { BandsModule } from './modules/bands/bands.module';
 import { GenresModule } from './modules/genres/genres.module';
+import { TracksModule } from './modules/tracks/tracks.module';
 
 @Module({
 	imports: [
@@ -35,6 +36,7 @@ import { GenresModule } from './modules/genres/genres.module';
 		ArtistsModule,
 		BandsModule,
 		GenresModule,
+		TracksModule,
 	],
 })
 

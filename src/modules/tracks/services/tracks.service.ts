@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTrackInput, UpdateTrackInput } from 'src/graphql';
+// import { CreateTrackInput, UpdateTrackInput } from 'src/graphql';
 import axios, { AxiosInstance } from 'axios';
 import { IContext } from 'src/types';
 
@@ -12,15 +12,15 @@ export class TracksService {
 	constructor() {
 		this.client = axios.create({
 			baseURL:
-				'https://3006-rollingscop-nodegraphql-hegnmr5cj7d.ws-eu51.gitpod.io/v1/tracks',
+				'http://localhost:3006/v1/tracks',
 		});
 	}
 
-	async create(createTrackInput: CreateTrackInput, config: IContext['config']) {
-		const res = await this.client.post('/', createTrackInput, config);
+	// async create(createTrackInput: CreateTrackInput, config: IContext['config']) {
+	// 	const res = await this.client.post('/', createTrackInput, config);
 
-		return res.data;
-	}
+	// 	return res.data;
+	// }
 
 
 	async findOne(id: string) {
@@ -38,15 +38,15 @@ export class TracksService {
 	}
 
 
-	async update(
-		id: string,
-		updateTrackInput: UpdateTrackInput,
-		config: IContext['config'],
-	) {
-		const res = await this.client.put(`/${id}`, updateTrackInput, config);
+	// async update(
+	// 	id: string,
+	// 	updateTrackInput: UpdateTrackInput,
+	// 	config: IContext['config'],
+	// ) {
+	// 	const res = await this.client.put(`/${id}`, updateTrackInput, config);
 
-		return res.data;
-	}
+	// 	return res.data;
+	// }
 
 	async remove(id: string, config: IContext['config']) {
 		const res = await this.client.delete(`/${id}`, config);
